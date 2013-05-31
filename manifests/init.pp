@@ -39,6 +39,9 @@ class strongswan(
   $wan_ip,
   $primary_dns,
   $secondary_dns,
+  $rightsourceip,
+  $leftnexthop,
+  $rightsubnet = '0.0.0.0/0',
 ){
   service { 'strongswan':
     ensure  => running,
