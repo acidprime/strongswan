@@ -1,0 +1,29 @@
+config setup
+    plutostart=yes
+    plutodebug=all
+    charonstart=yes
+    nat_traversal=yes
+    uniqueids=yes
+    charondebug="ike 4, knl 4, cfg 4"
+conn %default
+    ikelifetime=60m
+    keylife=20m
+    rekeymargin=3m
+    keyingtries=1
+    keyexchange=ikev1
+    leftcert=peerCert.pem
+    leftsubnet=0.0.0.0/0
+    leftnexthop=75.148.88.70
+    auto=add
+conn ios
+    left=<%= @wan_ip %>
+    leftauth=pubkey
+    leftfirewall=yes
+    rightsourceip=192.168.53.210/24
+    rightsubnet=0.0.0.0/0
+    rightdns=192.168.53.60
+    right=%any
+    rightauth=pubkey
+    rightauth2=xauth
+    forceencaps=yes
+    auto=start
