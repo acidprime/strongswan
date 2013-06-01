@@ -42,7 +42,7 @@ class strongswan(
   $rightsourceip,
   $leftnexthop,
   $rightsubnet = '0.0.0.0/0',
-  $eap_auth = true,
+  $eap_auth = false,
   $eap_server = 'localhost',
   $eap_secret = '$changeMe',
 ){
