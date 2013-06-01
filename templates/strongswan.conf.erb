@@ -18,12 +18,22 @@ charon {
         # database = sqlite:///path/to/file.db
         # database = mysql://user:password@localhost/database
       }
-      #dhcp {
-      #  force_server_address = yes
-      #  server = 192.168.53.1
-      #}
+    <% if @eap_auth  -%>
+    eap-radius {
+      #class_group = yes
+      eap_start = no
+      servers {
+        primary {
+          address = <%= @eap_server %>
+          secret = <%= @eap_secret %>
+          sockets = 20
+          # use secondary only if overloaded/non-responsive
+          preference = 99
+        }
+      }
     }
-
+    <% end -%>
+  }
 }
 
 libstrongswan {

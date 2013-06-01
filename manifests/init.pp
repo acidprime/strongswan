@@ -41,6 +41,8 @@ class strongswan(
   $secondary_dns,
   $rightsourceip,
   $leftnexthop,
+  $eap_auth = true,
+  $eap_server = 'localhost',
   $rightsubnet = '0.0.0.0/0',
 ){
   service { 'strongswan':

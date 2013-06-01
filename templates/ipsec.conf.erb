@@ -24,6 +24,11 @@ conn ios
     rightdns=<%= @primary_dns %>,<%= @secondary_dns %>
     right=%any
     rightauth=pubkey
+    <% if @eap_auth  -%>
+    rightauth2=eap-radius
+    eap_identity=%identity
+    <% else -%>
     rightauth2=xauth
+    <% end -%>
     forceencaps=yes
     auto=start
