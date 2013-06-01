@@ -41,9 +41,10 @@ class strongswan(
   $secondary_dns,
   $rightsourceip,
   $leftnexthop,
+  $rightsubnet = '0.0.0.0/0',
   $eap_auth = true,
   $eap_server = 'localhost',
-  $rightsubnet = '0.0.0.0/0',
+  $eap_secret = '$changeMe',
 ){
   service { 'strongswan':
     ensure  => running,
