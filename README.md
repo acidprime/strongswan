@@ -4,6 +4,71 @@
 This module will setup a strong swan IPSEC server that can be used with any
 IKEv2 compatible client. The intial release focuses on [iOS](http://wiki.strongswan.org/projects/strongswan/wiki/IOS_(Apple)) and its "Cisco" client and Centos 6.4. and Puppet Enterprise 2.8.1  
 
+Current Instructions:
+
+* Download a 6.4 copy of [CentOS](http://isoredirect.centos.org/centos/6/isos/x86_64/)  
+* Install and two network interfaces  
+Here is an example of the `/etc/sysconfig/network-scripts/ifcfg-eth1` needed for the WAN interface:
+
+```shell
+DEVICE=eth1
+HWADDR=00:98:E8:98:SC:95
+TYPE=Ethernet
+UUID=bcfec5bf-2dea-3611-823d-zadfakeb22a4
+ONBOOT=yes
+NM_CONTROLLED=yes
+BOOTPROTO=static
+IPADDR=1.2.3.4
+NETMASK=255.255.255.248
+GATEWAY=1.2.3.1
+DEFROUTE=yes
+```
+Configure `/etc/sysconfig/network-scripts/ifcfg-eth0` for your internal network (perhaps just through DHCP  
+
+Download and install [Puppet Enterise](http://info.puppetlabs.com/download-pe.html)  
+Ensure proper DNS and configure the Master and Console role, here is an example answer file `-a`:  
+```shell
+q_install=y
+q_puppet_cloud_install=y
+q_puppet_enterpriseconsole_auth_database_name=console_auth
+q_puppet_enterpriseconsole_auth_database_password=djhafhkjhfkfhskjhf
+q_puppet_enterpriseconsole_auth_database_user=console_auth
+q_puppet_enterpriseconsole_auth_password=someadminpass
+q_puppet_enterpriseconsole_auth_user_email=admin@yourcompany.com
+q_puppet_enterpriseconsole_database_install=n
+q_puppet_enterpriseconsole_database_name=console
+q_puppet_enterpriseconsole_database_password=fdfsfdiaJ9iwBfsdffdsfsdf
+q_puppet_enterpriseconsole_database_remote=n
+q_puppet_enterpriseconsole_database_root_password=fsfdsfdsfsfG
+q_puppet_enterpriseconsole_database_user=console
+q_puppet_enterpriseconsole_httpd_port=443
+q_puppet_enterpriseconsole_install=y
+q_puppet_enterpriseconsole_inventory_hostname=puppet.yourcompany.com
+q_puppet_enterpriseconsole_inventory_port=8140
+q_puppet_enterpriseconsole_master_hostname=puppet.yourcompany.com
+q_puppet_enterpriseconsole_setup_db=y
+q_puppet_enterpriseconsole_smtp_host=mail.yourcompany.com
+q_puppet_enterpriseconsole_smtp_password=
+q_puppet_enterpriseconsole_smtp_port=25
+q_puppet_enterpriseconsole_smtp_use_tls=n
+q_puppet_enterpriseconsole_smtp_user_auth=n
+q_puppet_enterpriseconsole_smtp_username=
+q_puppet_symlinks_install=y
+q_puppetagent_certname=puppet.yourcompany.com
+q_puppetagent_install=y
+q_puppetagent_server=puppet.yourcompany.com
+q_puppetca_install=y
+q_puppetmaster_certname=puppet.yourcompany.com
+q_puppetmaster_dnsaltnames=puppet
+q_puppetmaster_enterpriseconsole_hostname=localhost
+q_puppetmaster_enterpriseconsole_port=443
+q_puppetmaster_install=y
+q_vendor_packages_install=y
+q_verify_packages=y
+```
+You can have the puppet master and vpn server on different boxes, but the defined resource type
+mentioned below for generating the mobile configuration must be ran on the puppet master (CA)  
+
 The following is an example configuration on Centos machine with two ethernet interfaces:  
 ```puppet
   class {'strongswan':
@@ -11,7 +76,7 @@ The following is an example configuration on Centos machine with two ethernet in
     secondary_dns => '4.2.2.2',
     wan_ip        => $::ipaddress_eth1,       #WAN IP
     rightsourceip => '192.168.34.210/24',     #VPN IP Range
-    leftnexthop   => '1.2.3.4',               #WAN Router
+    leftnexthop   => '1.2.3.1',               #WAN Router
     eap_server    => '192.168.34.249',        #EAP Server
     eap_secret    => '48DB-947B-245579EC14AE',#EAP Secret
   } ->
@@ -108,13 +173,13 @@ The following would be an example of the needed firewall configuration using the
     action => 'accept',
     chain  => 'INPUT',
     proto  => 'esp',
-    iniface => 'eth2',
+    iniface => 'eth1',
   }
 
   firewall { '2014 Accept FORWARD in':
     ensure   => 'present',
     action   => 'accept',
-    iniface => 'eth0',
+    iniface => 'eth1',
     chain    => 'FORWARD',
   }
    firewall { '2014 Accept FORWARD out':
@@ -126,7 +191,7 @@ The following would be an example of the needed firewall configuration using the
 
  firewall { '1004 NAT Traffic':
     ensure   => 'present',
-    outiface => 'eth2',
+    outiface => 'eth1',
     chain    => 'POSTROUTING',
     table    => 'nat',
     jump     => 'MASQUERADE',
