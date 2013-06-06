@@ -1,10 +1,16 @@
 Strongswan::Mobileconfig{
-  remote_address       => 'ice.wallcity.org',
-  payload_identifier   => 'org.wallcity.vpn',
-  payload_organization => 'wallcity',
+  remote_address       => 'vpn.yourcompany.com',
+  payload_identifier   => 'com.yourcompany.vpn',
+  payload_organization => 'yourcompany',
 }
-strongswan::mobileconfig { 'zipad.wallcity.org' :
-  x_auth_name => 'example',
-  pkcs12_pass => 'FC0AE2BFC4EA',
+
+class {'strongswan::mobileconfig::setup':} ->
+
+
+# Create the certificate automatically in puppet
+# Export to the export_dir (hint: .htaccess web portal root or email script)
+strongswan::mobileconfig { 'ipad.yourcompany.com' :
+  x_auth_name => 'bob',
+  pkcs12_pass => 'FC0SFFF2FFGBFC4EA',
   export_dir  =>'/tmp',
 }

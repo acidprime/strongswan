@@ -1,11 +1,10 @@
-# The baseline for module testing used by Puppet Labs is that each manifest
-# should have a corresponding test manifest that declares that class or defined
-# type.
-#
-# Tests are then run by using puppet apply --noop (to check for compilation errors
-# and view a log of events) or by fully applying the test in a virtual environment
-# (to compare the resulting system state to the desired state).
-#
-# Learn more about module testing here: http://docs.puppetlabs.com/guides/tests_smoke.html
-#
-include openswan
+  class {'strongswan':
+    primary_dns   => '4.2.2.4',
+    secondary_dns => '4.2.2.2',
+    wan_ip        => $::ipaddress_eth1,       #WAN IP
+    rightsourceip => '192.168.34.210/24',     #VPN IP Range
+    leftnexthop   => '1.2.3.4',               #WAN Router
+    eap_server    => '192.168.34.249',        #EAP Server
+    eap_secret    => '48DB-947B-245579EC14AE',#EAP Secret
+  } ->
+  class {'strongswan::puppet':}               #CA Support

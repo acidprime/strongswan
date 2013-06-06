@@ -1,10 +1,18 @@
+# This class copies the puppet ca into strongswan
 class strongswan::puppet {
 
   File {
     ensure => directory,
   }
 
-  file { ['/etc/strongswan/ipsec.d','/etc/strongswan/ipsec.d/certs','/etc/strongswan/ipsec.d/private','/etc/strongswan/ipsec.d/cacerts']:}
+  $ipsec_directories = [
+    '/etc/strongswan',
+    '/etc/strongswan/ipsec.d',
+    '/etc/strongswan/ipsec.d/certs',
+    '/etc/strongswan/ipsec.d/private',
+    '/etc/strongswan/ipsec.d/cacerts']
+
+  file {$ipsec_directories :}
 
   file { '/etc/strongswan/ipsec.d/certs/peerCert.pem':
     ensure => file,

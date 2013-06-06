@@ -1,39 +1,31 @@
-# == Class: openswan
+# == Class: strongswan
 #
-# Full description of class openswan here.
+# Full description of class strongswan here.
 #
 # === Parameters
 #
 # Document parameters here.
 #
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# [*wan_ip*]
+#   This should be the WAN IP fact , see smoke test for fact example
+# [*primary_dns*]
+#  The DNS Server passed to the VPN client
+# [*secondary_dns*]
+#  The DNS Server passed to the VPN client
+# [*rightsourceip*]
+#  CIDR notation of the VPN IP range
+# [*leftnexthop*]
+#  The gateway that should be used
+# [*eap_auth / eap_secret*]
+#  Beta feature enable eap if you have compiled eap support into strong swan
+# [*rightsubnet*]
+#  Leave open to 0.0.0.0/0 for WAN vpn access
 #
-# === Variables
-#
-# Here you should define a list of variables that this module would require.
-#
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if it
-#   has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should not be used in preference to class parameters  as of
-#   Puppet 2.6.)
-#
-# === Examples
-#
-#  class { openswan:
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
-#  }
-#
-# === Authors
-#
-# Author Name <author@domain.com>
+# Author Name Zack Smith zack.smith@puppetlabs.com
 #
 # === Copyright
 #
-# Copyright 2011 Your name here, unless otherwise noted.
+# Copyright 2011 Zack Smith, unless otherwise noted.
 #
 class strongswan(
   $wan_ip,
@@ -41,8 +33,8 @@ class strongswan(
   $secondary_dns,
   $rightsourceip,
   $leftnexthop,
-  $rightsubnet = '0.0.0.0/0',
   $eap_auth = false,
+  $rightsubnet = '0.0.0.0/0',
   $eap_server = 'localhost',
   $eap_secret = '$changeMe',
 ){

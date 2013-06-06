@@ -14,7 +14,12 @@ define strongswan::der(
   case $ensure {
     present: {
       exec {"Export ${name} to ${basedir}/${name}.cer":
-        command => "openssl x509 -in ${cert} -inform PEM -outform DER -out ${basedir}/${name}.cer",
+        command => "
+        openssl x509 \
+        -in ${cert} \
+        -inform PEM \
+        -outform DER \
+        -out ${basedir}/${name}.cer",
         creates => "${basedir}/${name}.cer",
         path    => $path,
       }
