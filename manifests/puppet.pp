@@ -6,7 +6,6 @@ class strongswan::puppet {
   }
 
   $ipsec_directories = [
-    '/etc/strongswan',
     '/etc/strongswan/ipsec.d',
     '/etc/strongswan/ipsec.d/certs',
     '/etc/strongswan/ipsec.d/private',
