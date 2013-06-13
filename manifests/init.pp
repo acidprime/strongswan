@@ -33,6 +33,7 @@ class strongswan(
   $secondary_dns,
   $rightsourceip,
   $leftnexthop,
+  $erb_secrets = true,
   $eap_auth = false,
   $rightsubnet = '0.0.0.0/0',
   $eap_server = 'localhost',
@@ -55,24 +56,15 @@ class strongswan(
     notify     => Service['strongswan'],
   }
 
-  file {'/etc/strongswan/ipsec.secrets':
-    ensure  => file,
-    content => template("${module_name}/ipsec.secrets.erb"),
-    notify  => Service['strongswan'],
-  }
-
-  file { '/etc/ipsec.secrets':
-    ensure  => file,
-    content => template("${module_name}/ipsec.secrets.erb"),
-    notify  => Service['strongswan'],
+  if $erb_secrets {
+    file {'/etc/strongswan/ipsec.secrets':
+      ensure  => file,
+      content => template("${module_name}/ipsec.secrets.erb"),
+      notify  => Service['strongswan'],
+    }
   }
 
   file { '/etc/strongswan/ipsec.conf':
-    ensure  => file,
-    content => template("${module_name}/ipsec.conf.erb"),
-    notify  => Service['strongswan'],
-  }
-  file { '/etc/ipsec.conf':
     ensure  => file,
     content => template("${module_name}/ipsec.conf.erb"),
     notify  => Service['strongswan'],
