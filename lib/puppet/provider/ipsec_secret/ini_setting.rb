@@ -8,7 +8,10 @@ Puppet::Type.type(:ipsec_secret).provide(
   end
 
   def separator
-    ' : '
+    if resource[:name]
+      ' : '
+    else
+      ': '
   end
 
   def setting
