@@ -11,4 +11,10 @@ Puppet::Type.newtype(:ipsec_secret) do
       v.to_s.strip
     end
   end
+  newproperty(:type) do
+    desc 'The type of secret to be defined.'
+    munge do |v|
+      v.to_s.strip
+    end
+  end
 end
