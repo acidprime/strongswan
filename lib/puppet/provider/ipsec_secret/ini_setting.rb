@@ -8,7 +8,7 @@ Puppet::Type.type(:ipsec_secret).provide(
   end
 
   def separator
-    ''
+    ' '
   end
 
   # implement setting as the first part of the namevar
