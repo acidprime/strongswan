@@ -12,6 +12,7 @@ Puppet::Type.type(:ipsec_secret).provide(
       ' : '
     else
       ': '
+    end
   end
 
   def setting
