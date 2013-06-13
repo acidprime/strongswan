@@ -33,7 +33,7 @@ Puppet::Type.type(:ipsec_secret).provide(
       # figure out what to do about the seperator
       ini_file  = Puppet::Util::IniFile.new(file_path, ':')
       resources = []
-      ini_file.get_settings(section_name).each do |setting, value|
+      ini_file.get_settings('').each do |setting, value|
         resources.push(
           new(
             :name   => "#{setting}",
