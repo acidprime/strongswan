@@ -7,7 +7,6 @@ Puppet::Type.newtype(:ipsec_secret) do
   end
 
   newproperty(:type) do
-    isrequired
     desc "The type of secret, defaults to XAUTH"
     newvalues('RSA','ECDSA','PSK','EAP','NTLM','XAUTH','PIN')
     defaultto 'XAUTH'
