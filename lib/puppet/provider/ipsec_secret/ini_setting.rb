@@ -9,7 +9,6 @@ Puppet::Type.type(:ipsec_secret).provide(
 
   def separator
       ':'
-    end
   end
 
   def setting
