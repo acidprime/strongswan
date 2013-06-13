@@ -11,6 +11,10 @@ Puppet::Type.type(:ipsec_secret).provide(
     ' : '
   end
 
+  def setting
+    resource[:name]
+  end
+
   # hard code the file path (this allows purging)
   def self.file_path
     '/etc/ipsec.secrets'
