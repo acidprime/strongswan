@@ -13,9 +13,6 @@ Puppet::Type.type(:ipsec_secret).provide(
     type     = resource[:name].split(':', 2).last
     "#{username type}"
   end
-  def key_val_separator
-    ' '
-  end
   # hard code the file path (this allows purging)
   def self.file_path
     '/etc/strongswan/ipsec.secrets'
