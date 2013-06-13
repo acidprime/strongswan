@@ -1,5 +1,5 @@
 Puppet::Type.type(:ipsec_secret).provide(
-  :ini_setting,
+  :ini_subsetting,
   # set ini_subetting as the parent provider
   :parent => Puppet::Type.type(:ini_subsetting).provider(:ruby)
 ) do
