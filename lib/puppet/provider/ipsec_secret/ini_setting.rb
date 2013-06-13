@@ -15,6 +15,7 @@ Puppet::Type.type(:ipsec_secret).provide(
   def setting
     selector = resource[:name].split(':', 2).first
     type     = resource[:name].split(':', 2).last
+    "#{selector} : #{type}"
   end
 
   # hard code the file path (this allows purging)
