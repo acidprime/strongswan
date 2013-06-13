@@ -20,6 +20,6 @@ Puppet::Type.type(:ipsec_secret).provide(
 
   # hard code the file path (this allows purging)
   def self.file_path
-    '/etc/strongswan/ipsec.secrets'
+    '/etc/ipsec.secrets'
   end
 end
