@@ -11,6 +11,9 @@ Puppet::Type.type(:ipsec_secret).provide(
     ' '
   end
 
+  def subsetting_separator
+    ':'
+  end
 
   # implement setting as the first part of the namevar
   def setting
