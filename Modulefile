@@ -10,4 +10,4 @@ project_page 'https://github.com/acidprime/strongswan'
 ## Add dependencies, if any:
 dependency 'reidmv/puppet_certificate', '>= 0.0.2'
 dependency 'puppetlabs/stdlib', '>= 4.1.0'
-dependency 'cprice404/inifile', '>= 0.10.3'
+dependency 'adrien/filemapper', '>= 1.1.1'

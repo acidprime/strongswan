@@ -1,20 +1,21 @@
 Puppet::Type.newtype(:ipsec_secret) do
   ensurable
+
   newparam(:name, :namevar => true) do
-    desc 'setting:type to manage from ipsec.secrets'
-    # namevar should be of the form name/type
-    newvalues(/.*/)
+    isrequired
+    desc "The selector used for the secret"
   end
-  newproperty(:value) do
-    desc 'The value of the setting to be defined.'
-    munge do |v|
-      v.to_s.strip
-    end
-  end
+
   newproperty(:type) do
-    desc 'The type of secret to be defined.'
-    munge do |v|
-      v.to_s.strip
-    end
+    isrequired
+    desc "The type of secret, defaults to XAUTH"
+    newvalues('RSA','ECDSA','PSK','EAP','NTLM','XAUTH','PIN')
+    defaultto 'XAUTH'
   end
+
+  newproperty(:secret) do
+    isrequired
+    desc "The ipsec secret or filename"
+  end
+
 end
