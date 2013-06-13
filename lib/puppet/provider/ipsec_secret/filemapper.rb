@@ -16,6 +16,7 @@ Puppet::Type.type(:ipsec_secret).provide(:filemapper) do
       hash[:name]   = m[1]
       hash[:type]   = m[2]
       hash[:secret] = m[3]
+      hash
     end
   end
 
@@ -29,7 +30,7 @@ Puppet::Type.type(:ipsec_secret).provide(:filemapper) do
       if provider.secret  =~ /.*\.pem/
         line += ": #{provider.type} #{provider.secret}"
       else
-        line += "#{provider.name} : #{provider.type} \"#{provider.secret}\""
+        line += "#{provider.name} : #{provider.type} #{provider.secret}"
       end
       line += "\n"
     end.join
