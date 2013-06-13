@@ -2,7 +2,7 @@ Puppet::Type.newtype(:ipsec_secret) do
   ensurable
   newparam(:name, :namevar => true) do
     desc 'setting:type to manage from ipsec.secrets'
-    # namevar should be of the form section/setting
+    # namevar should be of the form name/type
     newvalues(/(\S+)?:\S+/)
   end
   newproperty(:value) do
