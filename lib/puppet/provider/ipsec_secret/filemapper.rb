@@ -4,9 +4,7 @@ Puppet::Type.type(:ipsec_secret).provide(:filemapper) do
   include PuppetX::FileMapper
 
   def self.target_files
-    array = Array.new
-    array.push '/etc/ipsec.secrets'
-    array
+    [ '/etc/ipsec.secrets' ]
   end
 
   def self.parse_file(filename, file_contents)
