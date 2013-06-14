@@ -1,5 +1,5 @@
 name    'zack/strongswan'
-version '0.0.1'
+version '0.0.3'
 source 'https://github.com/acidprime/strongswan'
 author 'zack'
 license 'Apache License, Version 2.0'
