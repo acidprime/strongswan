@@ -15,7 +15,7 @@ Puppet::Type.type(:ipsec_secret).provide(:filemapper) do
       hash = Hash.new
       hash[:name]   = m[1]
       hash[:type]   = m[2]
-      if provider.secret  =~ /.*\.pem/
+      if m[3]  =~ /.*\.pem/
         hash[:secret] = m[3]
       else
         hash[:secret] = "\"#{m[3]}\""
