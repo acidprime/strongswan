@@ -44,7 +44,7 @@ define strongswan::mobileconfig (
   $args = shellquote(any2array($args_hash))
 
   exec { 'mc_generate':
-    command   => "${module_path}/scripts/mc_generate.py $args",
+    command   => "${module_path}/scripts/mc_generate.py ${args}",
     logoutput => on_failure,
     creates   => "${export_dir}/${device_name}.mobileconfig",
     require   => [ Strongswan::Der['ca'] , Strongswan::Pkcs12[$device_name]],

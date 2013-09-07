@@ -33,7 +33,7 @@ define strongswan::pkcs12(
         -name ${name} \
         -nodes -noiter ${pass_opt}",
         creates => "${basedir}/${name}.p12",
-        path    => $path,
+        path    => $::path,
       }
     }
     absent: {

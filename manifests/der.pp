@@ -21,7 +21,7 @@ define strongswan::der(
         -outform DER \
         -out ${basedir}/${name}.cer",
         creates => "${basedir}/${name}.cer",
-        path    => $path,
+        path    => $::path,
       }
     }
     absent: {
