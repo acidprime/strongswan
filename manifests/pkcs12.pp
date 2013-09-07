@@ -23,13 +23,13 @@ define strongswan::pkcs12(
       }
 
       $args_hash = {
-        '-export' => '',
+        '-export' => undef,
         '-in'     => $cert,
         '-inkey'  => $pkey,
         '-out'    => "${basedir}/${name}.p12",
         '-name'   => $name,
-        '-nodes'  => '',
-        '-noiter' => '',
+        '-nodes'  => undef,
+        '-noiter' => undef,
       }
 
       $args = shellquote(any2array($args_hash))
