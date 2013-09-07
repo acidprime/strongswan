@@ -35,7 +35,7 @@ define strongswan::pkcs12(
       $args = shellquote(any2array($args_hash))
 
       exec {"Export ${name} to ${basedir}/${name}.p12":
-        command => "openssl pkcs12 ${args} ${pass_opt}"
+        command => "openssl pkcs12 ${args} ${pass_opt}",
         creates => "${basedir}/${name}.p12",
         path    => $::path,
       }
