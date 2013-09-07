@@ -13,13 +13,18 @@ define strongswan::der(
 ) {
   case $ensure {
     'present': {
+
+    $args_hash = {
+      '-in'        => ${cert},
+      '-inform'    => 'PEM',
+      '-outform'   => 'DER',
+      '-out'       => "${basedir}/${name}.cer",
+    }
+
+    $args = shellquote(any2array($args_hash))
+
       exec {"Export ${name} to ${basedir}/${name}.cer":
-        command => " \
-        openssl x509 \
-        -in ${cert} \
-        -inform PEM \
-        -outform DER \
-        -out ${basedir}/${name}.cer",
+        command => "openssl x509 $args"
         creates => "${basedir}/${name}.cer",
         path    => $::path,
       }
