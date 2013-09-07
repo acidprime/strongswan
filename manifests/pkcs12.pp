@@ -23,19 +23,16 @@ define strongswan::pkcs12(
       }
 
       $args_hash = {
-        '-export' => undef,
         '-in'     => $cert,
         '-inkey'  => $pkey,
         '-out'    => "${basedir}/${name}.p12",
         '-name'   => $name,
-        '-nodes'  => undef,
-        '-noiter' => undef,
       }
 
       $args = shellquote(any2array($args_hash))
 
       exec {"Export ${name} to ${basedir}/${name}.p12":
-        command => "openssl pkcs12 ${args} ${pass_opt}",
+        command => "openssl pkcs12 -export -nodes -noiter ${args} ${pass_opt}",
         creates => "${basedir}/${name}.p12",
         path    => $::path,
       }
