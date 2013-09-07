@@ -23,9 +23,8 @@ define strongswan::pkcs12(
       }
 
       exec {"Export ${name} to ${basedir}/${name}.p12":
-        command => "
-        openssl \
-        pkcs12 \
+        command => " \
+        openssl pkcs12 \
         -export \
         -in ${cert} \
         -inkey ${pkey} \

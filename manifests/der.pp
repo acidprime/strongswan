@@ -9,12 +9,12 @@
 define strongswan::der(
   $basedir,
   $cert,
-  $ensure=present
+  $ensure = 'present',
 ) {
   case $ensure {
-    present: {
+    'present': {
       exec {"Export ${name} to ${basedir}/${name}.cer":
-        command => "
+        command => " \
         openssl x509 \
         -in ${cert} \
         -inform PEM \
@@ -24,7 +24,7 @@ define strongswan::der(
         path    => $::path,
       }
     }
-    absent: {
+    'absent': {
       file {"${basedir}/${name}.cer":
         ensure => absent,
       }
