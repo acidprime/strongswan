@@ -13,29 +13,34 @@ define strongswan::pkcs12(
   $pkey,
   $cert,
   $pkey_pass,
-  $ensure=present
+  $ensure = 'present'
 ) {
   case $ensure {
-    present: {
+    'present': {
       $pass_opt = $pkey_pass ? {
         ''      => '',
         default => "-passout pass:${pkey_pass}",
       }
 
+      $args_hash = {
+        '-export' => '',
+        '-in'     => $cert,
+        '-inkey'  => $pkey,
+        '-out'    => "${basedir}/${name}.p12",
+        '-name'   => $name,
+        '-nodes'  => '',
+        '-noiter' => '',
+      }
+
+      $args = shellquote(any2array($args_hash))
+
       exec {"Export ${name} to ${basedir}/${name}.p12":
-        command => " \
-        openssl pkcs12 \
-        -export \
-        -in ${cert} \
-        -inkey ${pkey} \
-        -out ${basedir}/${name}.p12 \
-        -name ${name} \
-        -nodes -noiter ${pass_opt}",
+        command => "openssl pkcs12 ${args} ${pass_opt}"
         creates => "${basedir}/${name}.p12",
         path    => $::path,
       }
     }
-    absent: {
+    'absent' : {
       file {"${basedir}/${name}.p12":
         ensure => absent,
       }
