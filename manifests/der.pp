@@ -24,7 +24,7 @@ define strongswan::der(
     $args = shellquote(any2array($args_hash))
 
       exec {"Export ${name} to ${basedir}/${name}.cer":
-        command => "openssl x509 $args"
+        command => "openssl x509 $args",
         creates => "${basedir}/${name}.cer",
         path    => $::path,
       }
