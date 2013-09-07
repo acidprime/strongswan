@@ -15,7 +15,7 @@ define strongswan::der(
     'present': {
 
     $args_hash = {
-      '-in'        => ${cert},
+      '-in'        => $cert,
       '-inform'    => 'PEM',
       '-outform'   => 'DER',
       '-out'       => "${basedir}/${name}.cer",
