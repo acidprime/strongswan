@@ -13,6 +13,13 @@ define strongswan::mobileconfig (
 {
 
   validate_absolute_path($export_dir)
+  validate_string($pkcs12_pass)
+  validate_string($x_auth_name)
+  validate_string($remote_address)
+  validate_string($payload_identifier)
+  validate_string($payload_description)
+  validate_string($device_name)
+
 
   require strongswan::mobileconfig::setup
 
