@@ -6,9 +6,9 @@ define strongswan::mobileconfig (
   $payload_identifier,
   $payload_organization,
   $device_name = $name,
-  $payload_description = "${module_name} VPN configuration",
+  $payload_description  = "${module_name} VPN configuration",
   $payload_display_name = "VPN (${remote_address})",
-  $user_defined_name = $payload_display_name,
+  $user_defined_name    = $payload_display_name,
 )
 {
 
