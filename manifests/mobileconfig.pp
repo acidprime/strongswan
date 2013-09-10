@@ -12,6 +12,8 @@ define strongswan::mobileconfig (
 )
 {
 
+  validate_absolute_path($export_dir)
+
   require strongswan::mobileconfig::setup
 
   puppet_certificate { $device_name :
